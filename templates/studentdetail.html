@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Home Page</title>
+</head>
+<body class="bg-secondary p-2 text-dark   bg-opacity-10">
+    <div  >
+        <h1 style="text-align:center; color:blue; background-color:lightsalmon">Student Registration Form</h1>
+    </div>
+<div class="mb-3 pb-3">
+    <div class="container text-center w-25">
+        <form method="post"> 
+            {% csrf_token %}
+            {{form.as_p}}
+               <div class="mx-4 mt-2 text-center">
+                   <button class="btn btn-success" type="submit">Register</button>
+                   <button class="btn btn-warning" type="reset">Cancel</button>
+               </div>
+        </form>
+    </div>
+
+    <div class="container w-50 mt-3 pt-3">
+        {% if student %}
+        <table class="text-center table table-light table-hover">
+            <thead class="table-secondary">
+                <h2 style="text-align:center; color:blue; background-color:yellowgreen">Registered Student Details</h2>
+                <tr>
+                    <th>NAME</th>
+                    <th>CONTACT</th>
+                    <th>COURSE</th>
+                    <th>FEE</th>
+                    <th>ADDRESS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in student %}
+                <tr>
+                    <td>{{s.name}}</td>
+                    <td>{{s.contact}}</td>
+                    <td>{{s.course}}</td>
+                    <td>{{s.fee}}</td>
+                    <td>{{s.address}}</td>
+                    <td>
+                        <a href="{% url 'update' s.id %}"><button class="btn btn-primary btn-sm" type="submit">Update</button></a>
+                        <a href="{% url 'delete' s.id %}"><button class="btn btn-danger btn-sm" type="submit">Delete</button></a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+        <table class="text-center table table-light table-hover">
+            <thead class="table-secondary">
+                <tr style="background-color: light-yellow;">
+                    <th>NAME</th>
+                    <th>CONTACT</th>
+                    <th>COURSE</th>
+                    <th>FEE</th>
+                    <th>ADDRESS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        {% endif %} 
+    </div>
+</div>
+    <div>
+        <h1 style="text-align:center; color:white; background-color:purple">Thank You </h1>
+    </div>
+</body>
+</html>
